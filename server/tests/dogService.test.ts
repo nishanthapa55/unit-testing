@@ -27,4 +27,18 @@ describe('dogService', () => {
     expect(result.status).toBe('success');
     expect(global.fetch).toHaveBeenCalledOnce();
   });
+
+  it('should throw error when API returns not ok status', async () => {
+    // Arrange: Mock the fetch response with error status
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 500
+    } as Response);
+
+    // Act & Assert: Verify that the function throws an error with a specific message
+    await expect(getRandomDogImage()).rejects.toThrow(
+      'Failed to fetch dog image: Dog API returned status 500'
+    );
+    expect(global.fetch).toHaveBeenCalledOnce();
+  });
 });
