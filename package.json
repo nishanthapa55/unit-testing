@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "cd server && npm test",
+    "test:ui": "cd server && npm run test:ui",
+    "test:run": "cd server && npm run test:run"
   },
   "dependencies": {
     "react": "^19.2.0",
