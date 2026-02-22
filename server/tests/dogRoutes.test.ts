@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import request from 'supertest';
 import express, { Express } from 'express';
 import * as dogController from '../controllers/dogController';
@@ -12,7 +12,7 @@ describe('dogRoutes', () => {
     app.use(express.json());
 
     // Mock the controller
-    vi.spyOn(dogController, 'getDogImage').mockImplementation(async (req, res) => {
+    vi.spyOn(dogController, 'getDogImage').mockImplementation(async (_req, res) => {
       res.json({
         success: true,
         data: {
@@ -46,7 +46,7 @@ describe('dogRoutes', () => {
       new Error('Failed to fetch dog image: Network error')
     );
 
-    errorApp.get('/api/dogs/random', async (req, res, next) => {
+    errorApp.get('/api/dogs/random', async (req, res, _next) => {
       try {
         await dogController.getDogImage(req, res);
       } catch (error) {
